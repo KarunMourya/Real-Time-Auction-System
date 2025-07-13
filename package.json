@@ -4,14 +4,15 @@
   "description": "",
   "license": "ISC",
   "author": "",
-  "type": "module",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon --watch src --exec ts-node src/index.ts",
+    "dev": "nodemon --watch src --exec ts-node --loader ts-node/esm src/index.ts",
     "build": "tsc",
-    "start": "node src/index.ts",
+    "start": "ts-node src/index.ts",
     "lint": "eslint . --ext .ts,.js",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "migrate": "sequelize-cli db:migrate --require ts-node/register",
+    "seed": "sequelize-cli db:seed:all --require ts-node/register"
   },
   "lint-staged": {
     "**/*.{ts,js}": [
@@ -21,12 +22,19 @@
   "dependencies": {
     "body-parser": "^2.2.0",
     "dotenv": "^17.2.0",
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "pg": "^8.16.3",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.37.7",
+    "uuid": "^11.1.0",
+    "zod": "^4.0.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.31.0",
     "@types/express": "^5.0.3",
     "@types/node": "^24.0.13",
+    "@types/sequelize": "^4.28.20",
+    "@types/uuid": "^10.0.0",
     "@typescript-eslint/eslint-plugin": "^8.36.0",
     "@typescript-eslint/parser": "^8.36.0",
     "eslint": "^9.31.0",
@@ -34,6 +42,7 @@
     "husky": "^9.1.7",
     "lint-staged": "^16.1.2",
     "nodemon": "^3.1.10",
+    "sequelize-cli": "^6.6.3",
     "typescript": "^5.8.3"
   }
 }
