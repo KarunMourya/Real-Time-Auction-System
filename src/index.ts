@@ -1,16 +1,24 @@
-import expess from 'express';
+import express from 'express';
+import { dbConnection } from './dbConnection';
 import 'dotenv/config';
 
-const app = expess();
+const app = express(); 
 
-app.get('/ping', (request , response) => {
-    response.status(200).send({
-        data: [],
-        message: 'Server setup properly',
-        error: []
-    });
+app.get('/ping', (req, res) => {
+  res.status(200).send({
+    data: [],
+    message: 'Server setup properly',
+    error: [],
+  });
 });
 
-app.listen(process.env.PORT, () => {
-    console.log('Server is running on', process.env.PORT);
-});      
+const PORT = process.env.PORT;
+
+if (!PORT) {
+  throw new Error('❌ PORT environment variable not defined');
+}
+
+app.listen(Number(PORT), async () => {
+  await dbConnection();
+  console.log(`✅ Server is running on http://localhost:${PORT}`);
+});
