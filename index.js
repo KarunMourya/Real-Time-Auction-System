@@ -1,16 +1,16 @@
-import expess, { response } from "express"
-import "dotenv/config"
+import expess from 'express';
+import 'dotenv/config';
 
-const app = expess()
+const app = expess();
 
-app.get('/ping', (_ , response) => {
+app.get(   '/ping', (request , response) => {
     response.status(200).send({
         data: [],
-        message: "Server setup properly",
+        message: 'Server setup properly',
         error: []
-    })
-})
+    });
+});
 
-app.listen(process.env.PORT, ()=>{
-    console.log('Server is running on', process.env.PORT)
-})      
+app.listen(process.env.PORT, () => {
+    console.log('Server is running on', process.env.PORT);
+});      
