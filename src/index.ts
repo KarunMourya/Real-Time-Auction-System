@@ -3,7 +3,7 @@ import 'dotenv/config';
 
 const app = expess();
 
-app.get(   '/ping', (request , response) => {
+app.get('/ping', (request , response) => {
     response.status(200).send({
         data: [],
         message: 'Server setup properly',
